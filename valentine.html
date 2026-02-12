@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maa’m Please 😭</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #ffe6f0, #ffd1dc);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+    }
+
+    #yesBtn {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #noBtn {
+        transition: all 0.3s ease;
+    }
+
+    .shake {
+        animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+</style>
+</head>
+<body>
+
+<div class="text-center">
+    <h1 id="headerText" class="text-4xl font-bold text-rose-600 mb-6">
+        Maa’m will you be my Valentine? 🥺
+    </h1>
+
+    <img src="https://media.giphy.com/media/c76IJLufpNUMo/giphy.gif"
+         class="w-44 h-44 mx-auto mb-8 rounded-xl shadow-xl">
+
+    <div class="flex gap-4 justify-center">
+        <button id="yesBtn"
+            class="bg-green-500 text-white font-bold py-3 px-10 rounded-xl shadow-xl text-lg">
+            Yes 😌
+        </button>
+
+        <button id="noBtn"
+            class="bg-rose-500 text-white font-bold py-3 px-8 rounded-xl shadow-lg text-lg">
+            No 🙄
+        </button>
+    </div>
+</div>
+
+<script>
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+const headerText = document.getElementById('headerText');
+
+let clickCount = 0;
+let scale = 1;
+
+const noPhrases = [
+    "No 🙄",
+    "Maa’m think again 🤨",
+    "Future husband watching this 👀",
+    "Are you sure sure?? 😭",
+    "Don’t break my innocent heart 💔",
+    "Okay this is disrespectful 😤",
+    "I will tell your future kids 😭",
+    "Last warning ⚠️",
+    "System error 🚨",
+    "You cannot escape destiny 💀"
+];
+
+noBtn.addEventListener('click', () => {
+    clickCount++;
+
+    // Change text
+    const phraseIndex = Math.min(clickCount, noPhrases.length - 1);
+    noBtn.innerText = noPhrases[phraseIndex];
+
+    // Grow YES button
+    scale += 0.25;
+    yesBtn.style.transform = `scale(${scale})`;
+    yesBtn.style.boxShadow = "0 0 40px rgba(34,197,94,0.7)";
+
+    // Shake screen effect
+    document.body.classList.add("shake");
+    setTimeout(() => document.body.classList.remove("shake"), 400);
+
+    // Make NO button run away
+    if (clickCount > 2) {
+        noBtn.style.position = "fixed";
+        noBtn.style.top = Math.random() * 80 + "vh";
+        noBtn.style.left = Math.random() * 80 + "vw";
+    }
+
+    // Dramatic header changes
+    if (clickCount === 4)
+        headerText.innerText = "Maa’m please… future is at stake 😭";
+
+    if (clickCount === 7)
+        headerText.innerText = "Imagine explaining this to your husband 😌";
+
+    if (clickCount === 10)
+        headerText.innerText = "JUST CLICK YES BEFORE I CRASH 😤";
+});
+
+yesBtn.addEventListener('click', () => {
+
+    // Create confetti effect
+    for (let i = 0; i < 60; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-10px";
+        heart.style.fontSize = Math.random() * 30 + 20 + "px";
+        heart.style.animation = "fall 3s linear forwards";
+        document.body.appendChild(heart);
+    }
+
+    document.body.innerHTML = `
+        <div class="flex items-center justify-center h-screen text-center">
+            <div>
+                <h1 class="text-6xl font-bold text-rose-600 mb-6">
+                    I KNEW IT MAA’M 😌❤️
+                </h1>
+                <p class="text-xl mb-4">
+                    U Can't Say No To Me
+                </p>
+                <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif"
+                     class="w-80 h-80 mx-auto rounded-2xl shadow-2xl">
+            </div>
+        </div>
+    `;
+});
+
+// Falling hearts animation
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+`;
+document.head.appendChild(style);
+
+</script>
+
+</body>
+</html>
